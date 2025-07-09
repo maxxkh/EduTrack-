@@ -2,18 +2,25 @@
 
 import "./globals.css";
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, Easing, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Animated, Easing, Dimensions ,ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
-const { width } = Dimensions.get('window');
 
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const Index = () => {
   const navigation = useNavigation<any>();
   const slideUpAnim = new Animated.Value(100);
   const fadeAnim = new Animated.Value(0);
   const rotateAnim = new Animated.Value(0);
+  const router = useRouter();
 
+
+
+
+  
   useEffect(() => {
     Animated.parallel([
       Animated.timing(slideUpAnim, {
@@ -44,8 +51,11 @@ const Index = () => {
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
   });
-
+  
   return (
+    <SafeAreaView style={{ height: screenHeight, width: screenWidth }}>
+      <ScrollView>
+
     <View className="flex-1 bg-gray-900">
       {/* Floating orb elements */}
       <Animated.View 
@@ -139,11 +149,12 @@ const Index = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate('(screens)/SignUp')}
+            onPress={() =>  navigation.navigate('(screens)/SignUp')}
             className="bg-gradient-to-r from-amber-400 to-amber-500 py-4 rounded-xl items-center mb-4 mt-10 flex-row justify-center"
             activeOpacity={0.9}
           >
-            <Text className="text-gray-900 font-bold text-lg">
+
+            <Text className="text-white font-bold text-lg">
               Start Learning Free
             </Text>
             <Ionicons name="arrow-forward" size={20} color="#1F2937" className="ml-2" />
@@ -164,6 +175,8 @@ const Index = () => {
         }}
       />
     </View>
+    </ScrollView>
+    </SafeAreaView>
   );
 };
 

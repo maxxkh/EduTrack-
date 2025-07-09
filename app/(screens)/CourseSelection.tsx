@@ -40,7 +40,6 @@ const CourseSelection = () => {
 
   return (
     <View className="flex-1 bg-gray-50">
-      {/* Decorative Header */}
       <View className={`bg-indigo-600 pt-16 pb-8 px-6 rounded-b-3xl`}>
         <View className="absolute top-4 right-4 opacity-10">
           <Ionicons name="school" size={120} color="white" />
@@ -63,13 +62,13 @@ const CourseSelection = () => {
       <ScrollView className="px-6 mt-6" showsVerticalScrollIndicator={false}>
         {courses.map((course, index) => (
           <TouchableOpacity
+          onPress={()=> navigation.navigate('(screens)/LessionViewer', { path: course.id })}
             key={course.id}
             className={`bg-white p-5 rounded-xl mb-4 shadow-sm relative overflow-hidden ${
               course.isNextStep ? 'border-l-4 border-indigo-500' : ''
             }`}
             activeOpacity={0.95}
           >
-            {/* Subtle corner accent */}
             <View 
               className="absolute top-0 right-0 w-16 h-16 opacity-10"
               style={{ backgroundColor: course.accentColor }}
@@ -108,19 +107,10 @@ const CourseSelection = () => {
           className="bg-indigo-600 py-4 rounded-xl items-center flex-row justify-center shadow-md"
           activeOpacity={0.9}
         >
-          <Text className="text-white font-medium mr-2">Begin HTML & CSS Foundations</Text>
+          <Text className="text-white font-medium mr-2"> Dashboard</Text>
           <Ionicons name="rocket" size={18} color="white" />
         </TouchableOpacity>
         
-        {/* Subtle decorative elements */}
-        <View className="flex-row justify-center mt-4 space-x-2">
-          {[1, 2, 3].map((dot) => (
-            <View 
-              key={dot} 
-              className={`w-2 h-2 rounded-full ${dot === 1 ? 'bg-indigo-400' : 'bg-gray-300'}`}
-            />
-          ))}
-        </View>
       </View>
     </View>
   );

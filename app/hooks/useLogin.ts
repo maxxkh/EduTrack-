@@ -34,7 +34,7 @@ export const useLogin = () => {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate('(screens)/Dashboard');
+      navigation.navigate('(screens)/PathSelection');
     } catch (error: any) {
       console.log(error);
       alert('Login failed: ' + error.message);

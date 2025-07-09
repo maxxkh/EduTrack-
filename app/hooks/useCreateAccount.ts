@@ -71,7 +71,7 @@ useEffect(() => {
     if (user) {
       // User is signed in.
       console.log("User is signed in:", user.email);
-      navigation.navigate('(screens)/Dashboard'); // Navigate to the dashboard or home screen
+      navigation.navigate('(screens)/PathSelection'); // Navigate to the dashboard or home screen
 
       // You can update your UI here, navigate, or fetch user-specific data.
       // For example: setLoggedInUser(user);

@@ -4,35 +4,24 @@ import { MaterialIcons, Feather, Ionicons, AntDesign } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../FirebaseConfig';
 
-import type { StackNavigationProp } from '@react-navigation/stack';
-
-type RootStackParamList = {
-  Settings: undefined;
-  Auth: undefined;
-  // add other screens here
-};
-
-type SettingsScreenProps = {
-  navigation?: NativeStackNavigationProp<RootStackParamList, 'Settings'>;
-};
-
-const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
-  // User data state
+const SettingsScreen = () => {
+  const navigation = useNavigation<any>();
   const [user, setUser] = useState({
     name: 'Alex Johnson',
     email: 'alex.johnson@example.com',
     profileImage: require('../../assets/image.png'),
     isDarkMode: false,
     notificationsEnabled: true,
-
   });
 
-  // Form states
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(user.name);
   
-  // Image picker handler
+
   const handleImagePick = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -62,15 +51,20 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
     setIsEditingName(false);
   };
 
-  const handleSignOut = () => {
-    Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Sign Out', style: 'destructive', onPress: () => navigation?.reset && navigation.reset({ index: 0, routes: [{ name: 'Auth' }] }) }
-      ]
-    );
+
+
+    const HandleSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log('User signed out successfully');
+      navigation.navigate('(screens)/Login');
+    } catch (error: any) {
+      console.error('Sign out error:', error.message);
+      Alert.alert(
+        'Sign Out Failed',
+        error.message || 'Unable to sign out at this time'
+      );
+    }
   };
 
   return (
@@ -249,7 +243,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         {/* Sign Out Button */}
         <TouchableOpacity 
           className={`flex-row items-center justify-center py-4 rounded-xl mb-8 ${user.isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
-          onPress={handleSignOut}
+          onPress={HandleSignOut}
         >
           <MaterialIcons 
             name="logout" 
