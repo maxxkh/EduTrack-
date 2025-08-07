@@ -1,8 +1,5 @@
 import Stack from 'expo-router/stack';
-import { StyleSheet } from 'nativewind'
-import { useFrameworkReady } from '@/hooks/useFrameworkReady';
-
-StyleSheet.setFlag('darkMode', 'class');
+import { useFrameworkReady } from '../hooks/useFrameworkReady';
 
 export default function Layout() {
   useFrameworkReady();
