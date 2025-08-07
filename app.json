@@ -4,7 +4,7 @@
     "slug": "my-project",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/image.png",
     "scheme":"movies",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
